@@ -1,4 +1,8 @@
-"""  column  0   1   2
+"""
+     This project attempts to program the board functionality necessary, 
+     for most of the graphical Boards games like Tic Tac Toe, sudoku, casion slots, and other such puzzle games 
+
+     column  0   1   2
      row 0  .x.|.x.|.x.
             ---+---+---
      row 1  .x.|.x.|.x.
@@ -14,6 +18,7 @@
 
 
 class Board:
+     #Initialization of the data structures necessary for the board object
     def __init__(self, d_sq_Num, initkey="_"):
         self.size = d_sq_Num;
         self.key = initkey
@@ -25,16 +30,15 @@ class Board:
             self.aam_board.append(temp);
         self.ValuePresets = {"row":None,"column":None,"full":None,"empty":None}
 
-
+    #function necesssary for displaying the board as below
+    '''
+        .x.|.x.|.x.
+        ---+---+---
+        .x.|.x.|.x.
+        ---+---+---
+        .x.|.x.|.x.
+    '''
     def __str__(self,s_margin = " "):
-        '''
-        .x.|.x.|.x.
-        ---+---+---
-        .x.|.x.|.x.
-        ---+---+---
-        .x.|.x.|.x.
-        '''
-        #0 , 1, 1
         cSTRING,separator,divider = "", "-","+"
         for ind in range(self.size):
             for jnd in range(self.size):
@@ -50,6 +54,7 @@ class Board:
 
         return cSTRING
 
+     #takes row, column full or empty as one of the parameters and executes their corresponding functions to check if a row,column is same or board is full or empty.
     def get_patterns(self, var):
         for key in self.ValuePresets.keys():
             key, self.ValuePresets[key]
@@ -64,8 +69,12 @@ class Board:
                 return self.check_empty()
             case _:
                 return "invalid, please enter a valid entry"
+
+     #gets the size of the board
     def get_size(self):
         return self.size
+    
+    #These two functions below check row, column. Subsetive methods of the get_patterns
     def check_row(self):
         COUNT = 0;
         for ind in range(self.size):
@@ -75,7 +84,7 @@ class Board:
             if b_check == True:
                 return b_check;
         return False
-
+    #
     def check_column(self):
         for ind in range(self.size):
             COUNT = 0
@@ -85,7 +94,8 @@ class Board:
                 if b_check == True:
                     return b_check;
             return False
-
+    
+    #These two functions below check row, column. Subsetive methods of the get_patterns
     def check_full(self):
         COUNT = 0;
         for ind in range(self.size):
@@ -106,7 +116,7 @@ class Board:
                 return b_check;
         return False
 
-
+    #get coordinate value
     def get_coord(self,*args):
         #self object reference, row, index
         b_returnVal = all([True if vals in range(self.size) else None for vals in args])
@@ -114,7 +124,8 @@ class Board:
             return self.aam_board[args[0]][args[1]]
         else:
             print("out of range, please try again")
-
+  
+    #set coordinate value
     def set_coord_update(self,value,*args):
         #self object reference, row, index
         if len(value) == 1:
@@ -124,6 +135,9 @@ class Board:
         else:
             print("please enter a valid value")
 
+
+#initialization of the board with n element,
+     #ex. 3 [] [] []
 board = Board(3)
 print(board)
 
